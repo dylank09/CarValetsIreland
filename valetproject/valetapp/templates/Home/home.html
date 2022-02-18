@@ -1,0 +1,32 @@
+<title>Valet System</title>
+<h2>Valet System</h2>
+
+{% block content %} {% if user.is_authenticated %}
+<div
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+  "
+>
+  <a href="../bookingservice_form/">
+    <button style="height: auto; margin: 4%">Book Appointment</button>
+  </a>
+  <a href="../cancel_list/">
+    <button style="height: auto; margin: 4%">Cancel Appointment</button>
+  </a>
+  <a href="../home">
+    <button style="height: auto; margin: 4%">View Services</button>
+  </a>
+  <a href="../home">
+    <button style="height: auto; margin: 4%">Contact Us</button>
+  </a>
+  <a href="../logout/">
+    <button style="height: auto; margin: 4%">Logout</button>
+  </a>
+</div>
+{% else %}
+<p>You are not logged in</p>
+<a href="../login/">Log In</a>
+{% endif %} {% endblock %}

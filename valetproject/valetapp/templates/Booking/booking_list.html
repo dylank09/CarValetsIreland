@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Exporting Info to CSV</h1>
+    <h3>Total money made from franchise {{ export_data.total_sum }}</h3>
+    <h3>Money made by each store in chain</h3>
+    {% for store in export_data.money_made_by_each_store %}
+    {{store}}<br>
+    {% endfor %}
+    <h3>Customer Emails for Seasonal Promotions</h3>
+    {% for customer in export_data.customers %}
+    {{customer}}<br>
+    {% endfor %}
+    <h3>Store names under chain</h3>
+    {% for store in export_data.store_names %}
+    {{store}}<br>
+    {% endfor %}
+    <h3>Valet types offered by chain</h3>
+    {% for valet in export_data.valet_types %}
+    {{valet}}<br>
+    {% endfor %}
+    <h3>Membership types offered by chain</h3>
+    {% for membership in export_data.membership_types %}
+    {{membership}}<br>
+    {% endfor %}
+    <h3>Staff members of chain</h3>
+    {% for staff in export_data.staff_members %}
+    {{staff}}<br>
+    {% endfor %}
+</body>
+</html>

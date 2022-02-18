@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pay for booking</title>
+  </head>
+  <body>
+    <div>Pay for booking</div>
+    <div>Your membership level: {{booking.user.membershipType.colour}}</div>
+    <br />
+    <div>Start: {{booking.start_time}}</div>
+    <div>End: {{booking.end_time}}</div>
+    <br />
+    <div>Services: {{booking.valetservice}}</div>
+    <br />
+    <div>Gross price: {{oldPrice}}</div>
+    <div>Membership Discount: {{discount}}</div>
+    <div>Net price: {{booking.price}}</div>
+
+    <a href="../confirmBooking/{{booking.id}}">
+      <button>Confirm and Pay</button>
+    </a>
+  </body>
+</html>

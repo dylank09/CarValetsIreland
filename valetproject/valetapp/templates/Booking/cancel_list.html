@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .col {
+      width: 80%;
+      overflow: auto;
+    }
+  </style>
+  <body>
+    <h1>List of bookings in the database</h1>
+    <ul>
+      {% for x in bookings|safeseq %}
+      <li style="position: relative; top: 40%; outline: 2px solid black">
+        {{ x }}
+      </li>
+      {% endfor %} {% for y in bookingID|safeseq %}
+      <br />
+      <a href="../cancelBooking/{{y}}" style="position: relative; left: 5%">
+        <button style="color: brown">Cancel Booking</button>
+      </a>
+      <br />
+      {% endfor %}
+    </ul>
+  </body>
+</html>
