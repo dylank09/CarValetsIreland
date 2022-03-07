@@ -8,7 +8,8 @@ from abc import ABC, abstractmethod
 from valetapp.views.Visitor.concreteVisitor import ConcreteVisitor
 from django.shortcuts import render
 
-from valetproject.valetapp.views.Visitor.narrowInterface import narrowInterface
+from valetapp.views.Visitor.narrowInterface import narrowInterface
+
 
 class exportToCSV_Adapter(narrowInterface):
 
@@ -23,7 +24,8 @@ class exportToCSV_Adapter(narrowInterface):
 
     def get_customer_emails(self):
         customer_emails = []
-        customer_emails.append(self.customer.accept(self.visitor))
+        for customer in self.customers:
+            customer_emails.append(customer.accept(self.visitor))
         return customer_emails
 
     def get_total_money(self):
@@ -45,20 +47,24 @@ class exportToCSV_Adapter(narrowInterface):
 
     def get_stores(self):
         store_names = []
-        store_names.append(self.store.accept(self.visitor))
+        for store in self.stores:
+            store_names.append(store.accept(self.visitor))
         return store_names
 
     def get_valets(self):
         valet_types = []
-        valet_types.append(self.valet.accept(self.visitor))
+        for valet in self.valets:
+            valet_types.append(valet.accept(self.visitor))
         return valet_types
 
     def get_membership_types(self):
         membership_types = []
-        membership_types.append(self.membershipType.accept(self.visitor))
+        for membershipType in self.membershipTypes:
+            membership_types.append(membershipType.accept(self.visitor))
         return membership_types
 
     def get_staff(self):
         staff_members = []
-        staff_members.append(self.staff.accept(self.visitor))
+        for staff in self.staffs:
+            staff_members.append(staff.accept(self.visitor))
         return staff_members

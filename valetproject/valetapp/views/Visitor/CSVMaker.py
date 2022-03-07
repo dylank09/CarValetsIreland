@@ -1,6 +1,9 @@
 from valetapp.views.Visitor.exportToCSV import exportToCSV_Adapter
 
-class CSVMaker():
+
+class CSVMaker:
+    def __init__(self) -> None:
+        pass
 
     def get_emails(self):
-        print(exportToCSV_Adapter.get_customer_emails())
+        print(exportToCSV_Adapter().get_customer_emails())
