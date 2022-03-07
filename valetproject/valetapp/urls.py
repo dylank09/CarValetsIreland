@@ -23,7 +23,7 @@ urlpatterns = [
     path('commands/', commandClient.commandClient, name='commandClient'),
     path('execute/<str:concreteCommandName>',
          commandClient.execute, name='execute'),
-    path('view/', CSVMaker.get_emails, name='getVisitor'),
+    path('view/', CSVMaker.create_CSV, name='getVisitor'),
     path('login/', auth.login_page, name='loginUser'),
     path('logout/', auth.user_logout, name='logout'),
 ]
