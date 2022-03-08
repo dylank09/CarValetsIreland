@@ -12,11 +12,11 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(
         max_length=254, help_text='Required. Inform a valid email address.')
 
-    membership_types = MembershipType.objects.all()
-    colours = [(colour, colour.get_colour()) for colour in membership_types]
-    colours = tuple(colours)
-    colours = forms.ChoiceField(
-        choices=colours, required=False)
+    # membership_types = MembershipType.objects.all()
+    # colours = [(colour, colour.get_colour()) for colour in membership_types]
+    # colours = tuple(colours)
+    # colours = forms.ChoiceField(
+    #     choices=colours, required=False)
 
     class Meta:
         model = User
