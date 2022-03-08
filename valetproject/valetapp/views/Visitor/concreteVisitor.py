@@ -15,7 +15,7 @@ class ConcreteVisitor(Visitor):
         if isinstance(item, Booking):
             return item.get_price()
         if isinstance(item, Customer):
-            return item.getEmail()
+            return item.get_email()
         if isinstance(item, ChainStore):
             name = item.get_name()
             return name
