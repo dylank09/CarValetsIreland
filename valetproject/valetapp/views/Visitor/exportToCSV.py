@@ -4,60 +4,67 @@ from valetapp.models.Store.chainstore import ChainStore
 from valetapp.models.Valet.valet import Valet
 from valetapp.models.Users.membershiptype import MembershipType
 from valetapp.models.Users.staff import Staff
+from abc import ABC, abstractmethod
 from valetapp.views.Visitor.concreteVisitor import ConcreteVisitor
 from django.shortcuts import render
 
-
-def getVisitor(request):
-    bookings = Booking.objects.all()
-    customers = Customer.objects.all()
-    stores = ChainStore.objects.all()
-    valets = Valet.objects.all()
-    membershipTypes = MembershipType.objects.all()
-    staffs = Staff.objects.all()
-    visitor = ConcreteVisitor()
-
-    total_sum = 0
-    customer_emails_for_promotions = []
-    store_names = []
-    valet_types = []
-    membership_types = []
-    staff_members = []
-
-    for booking in bookings:
-        total_sum += booking.accept(visitor)
-    for customer in customers:
-        customer_emails_for_promotions.append(customer.accept(visitor))
-    for store in stores:
-        store_names.append(store.accept(visitor))
-    for valet in valets:
-        valet_types.append(valet.accept(visitor))
-    for membershipType in membershipTypes:
-        membership_types.append(membershipType.accept(visitor))
-    for staff in staffs:
-        staff_members.append(staff.accept(visitor))
-
-    money_made_by_each_store = get_money_made_by_each_store(bookings, stores)
-
-    export_to_CSV_object = {
-        'total_sum': total_sum,
-        'customers': customer_emails_for_promotions,
-        'store_names': store_names,
-        'valet_types': valet_types,
-        'membership_types': membership_types,
-        'staff_members': staff_members,
-        'money_made_by_each_store': money_made_by_each_store
-    }
-
-    return render(request, "Booking/booking_list.html", {'export_data': export_to_CSV_object})
+from valetapp.views.Visitor.narrowInterface import narrowInterface
 
 
-def get_money_made_by_each_store(bookings, stores):
-    money_made_by_store = []
-    for store in stores:
-        store_total = 0
-        for booking in bookings:
-            if(booking.get_store() == store):
-                store_total += booking.get_price()
-        money_made_by_store.append((store.get_name(), store_total))
-    return money_made_by_store
+class exportToCSV_Adapter(narrowInterface):
+
+    def __init__(self):
+        self.bookings = Booking.objects.all()
+        self.customers = Customer.objects.all()
+        self.stores = ChainStore.objects.all()
+        self.valets = Valet.objects.all()
+        self.membershipTypes = MembershipType.objects.all()
+        self.staffs = Staff.objects.all()
+        self.visitor = ConcreteVisitor()
+
+    def get_customer_emails(self):
+        customer_emails = []
+        for customer in self.customers:
+            customer_emails.append(customer.accept(self.visitor))
+        return customer_emails
+
+    def get_total_money(self):
+        total_sum = 0
+        for booking in self.bookings:
+            total_sum += booking.accept(self.visitor)
+        print(total_sum)
+        return total_sum
+
+    def get_money_by_each_store(self):
+        money_made_by_store = []
+        for store in self.stores:
+            store_total = 0
+            for booking in self.bookings:
+                if(booking.get_store() == store):
+                    store_total += booking.get_price()
+            money_made_by_store.append((store.get_name(), store_total))
+        return money_made_by_store
+
+    def get_stores(self):
+        store_names = []
+        for store in self.stores:
+            store_names.append(store.accept(self.visitor))
+        return store_names
+
+    def get_valets(self):
+        valet_types = []
+        for valet in self.valets:
+            valet_types.append(valet.accept(self.visitor))
+        return valet_types
+
+    def get_membership_types(self):
+        membership_types = []
+        for membershipType in self.membershipTypes:
+            membership_types.append(membershipType.accept(self.visitor))
+        return membership_types
+
+    def get_staff(self):
+        staff_members = []
+        for staff in self.staffs:
+            staff_members.append(staff.accept(self.visitor))
+        return staff_members

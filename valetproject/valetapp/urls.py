@@ -3,7 +3,9 @@ from valetapp.views import views
 from valetapp.views.Authentication import auth
 from valetapp.views.Booking import booking
 from valetapp.views.Visitor import exportToCSV
+from valetapp.views.Visitor.CSVMaker import CSVMaker
 from valetapp.views.Booking.booking import BookingList
+from valetapp.views.Command import commandClient
 
 urlpatterns = [
     path('', auth.register, name='index'),
@@ -18,7 +20,10 @@ urlpatterns = [
          booking.confirm_pay, name='confirmPay'),
     path('register/', auth.register, name='register'),
     path('home/', views.home, name='home'),
-    path('view/', exportToCSV.getVisitor, name='getVisitor'),
+    path('commands/', commandClient.commandClient, name='commandClient'),
+    path('execute/<str:concreteCommandName>',
+         commandClient.execute, name='execute'),
+    path('view/', CSVMaker.create_CSV, name='getVisitor'),
     path('login/', auth.login_page, name='loginUser'),
     path('logout/', auth.user_logout, name='logout'),
 
