@@ -5,6 +5,7 @@ from valetapp.models.Booking.booking import Booking
 from valetapp.models.Valet.valetservice import CompositeBaseValet, CompositeExterior, Wash, Wax, Polish, CompositeInterior, SteamClean, Vacuum, Leather
 from valetapp.models.Users.customer import Customer
 from valetapp.forms.Booking.bookService import AvailabilityForm
+from valetapp.views.Builder.goldBuilder import GoldBuilder
 from valetapp.views.addOns import ConcreteValet, WaxCost, WashCost, PolishCost, LeatherCost, SteamCleanCost, VacuumCost
 import math
 from datetime import datetime, timedelta
@@ -218,3 +219,13 @@ def view_user_bookings(request):
     for booking in bookings:
         bookingID.append(booking.id)
     return render(request, 'Booking/cancel_list.html', {'bookings': bookings, 'bookingID': bookingID})
+
+def builder(request):
+    goldBuilder = GoldBuilder()
+    goldBuilder.add_valet_service_a()
+    goldBuilder.add_valet_service_b()
+    goldBuilder.add_valet_service_c()
+    product = goldBuilder.product
+    print(product['valet'].get_valet_cost())
+    print(product['valets'])
+    return render(request, 'Booking/builder.html')

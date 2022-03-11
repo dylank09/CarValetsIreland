@@ -21,4 +21,6 @@ urlpatterns = [
     path('view/', exportToCSV.getVisitor, name='getVisitor'),
     path('login/', auth.login_page, name='loginUser'),
     path('logout/', auth.user_logout, name='logout'),
+
+    path('builder/', booking.builder, name='builder'),
 ]
