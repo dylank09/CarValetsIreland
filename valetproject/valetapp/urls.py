@@ -28,4 +28,6 @@ urlpatterns = [
     path('logout/', auth.user_logout, name='logout'),
 
     path('builder/', booking.builder, name='builder'),
+
+    path('interceptor/', booking.interceptor, name='interceptor'),
 ]

@@ -10,6 +10,10 @@ from valetapp.views.addOns import ConcreteValet, WaxCost, WashCost, PolishCost, 
 import math
 from datetime import datetime, timedelta
 import pytz
+from valetapp.framework.concreteFramework import concreteFramework
+from valetapp.interceptor.concreteInterceptor import concreteInterceptor
+
+
 utc = pytz.UTC
 
 
@@ -106,11 +110,12 @@ def create_booking(request, data):
     num_bookings = Booking.objects.count()
 
     if len(valet_services) > 0:  # precondition
-        req = make_booking(request, data, total_booking_cost, valets, booking_duration, storeid)
+        req = make_booking(request, data, total_booking_cost,
+                           valets, booking_duration, storeid)
 
     num_bookings_after = Booking.objects.count()
 
-    if num_bookings_after > num_bookings: # postcondition
+    if num_bookings_after > num_bookings:  # postcondition
         return req
 
     return ""
@@ -164,7 +169,6 @@ def make_booking(request, data, total_booking_cost, valets, booking_duration, st
         price=total_booking_cost,
         store=storeid
     )
-    
 
     booking.save()
     check_for_free_8th_booking(customer, booking)
@@ -220,6 +224,7 @@ def view_user_bookings(request):
         bookingID.append(booking.id)
     return render(request, 'Booking/cancel_list.html', {'bookings': bookings, 'bookingID': bookingID})
 
+
 def builder(request):
     goldBuilder = GoldBuilder()
     goldBuilder.add_valet_service_a()
@@ -229,3 +234,13 @@ def builder(request):
     print(product['valet'].get_valet_cost())
     print(product['valets'])
     return render(request, 'Booking/builder.html')
+
+
+def interceptor(request):
+    concreteFramework1 = concreteFramework()
+    concreteInterceptor1 = concreteInterceptor()
+    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptor1)
+    concreteFramework1.event()
+    print(concreteInterceptor1.log())
+
+    return render(request, 'Booking/interceptor.html')
