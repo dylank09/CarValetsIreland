@@ -241,6 +241,6 @@ def interceptor(request):
     concreteInterceptor1 = concreteInterceptor()
     concreteFramework1.dispatcher.registerInterceptor(concreteInterceptor1)
     concreteFramework1.event()
-    print(concreteInterceptor1.log())
+    print(concreteInterceptor1.get_booking_email_list())
 
     return render(request, 'Booking/interceptor.html')

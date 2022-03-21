@@ -6,5 +6,5 @@ class interceptor:
         pass
 
     @abstractmethod
-    def log(self):
+    def get_booking_info(self):
         pass

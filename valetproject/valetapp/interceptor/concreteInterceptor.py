@@ -8,5 +8,5 @@ class concreteInterceptor(interceptor):
     def callBack(self, contextObject):
         self.contextObject = contextObject
 
-    def log(self):
-        return self.contextObject.log()
+    def get_booking_email_list(self):
+        return self.contextObject.get_emails()
