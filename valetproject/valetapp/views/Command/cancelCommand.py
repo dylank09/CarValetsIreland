@@ -10,3 +10,7 @@ class CancelCommand(Command):
     def execute(self) -> None:
         self.booking.cancel()
         self.booking.save()
+
+    def undo(self) -> None:
+        self.booking.book()
+        self.booking.save()
