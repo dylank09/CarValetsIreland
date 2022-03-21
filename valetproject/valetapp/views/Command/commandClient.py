@@ -4,12 +4,12 @@ from valetapp.views.Command.bookCommand import BookCommand
 from valetapp.views.Command.pendingCommand import PendingCommand
 from django.shortcuts import render
 
-# booking = Booking.objects.filter()[0]
-# cancelCommand = CancelCommand("cancel", booking)
-# bookCommand = BookCommand("book", booking)
-# pendingCommand = PendingCommand("pending", booking)
-# commandsMap = dict({"cancel": cancelCommand,
-#                    "book": bookCommand, "pending": pendingCommand})
+booking = Booking.objects.filter()[0]
+cancelCommand = CancelCommand("cancel", booking)
+bookCommand = BookCommand("book", booking)
+pendingCommand = PendingCommand("pending", booking)
+commandsMap = dict({"cancel": cancelCommand,
+                   "book": bookCommand, "pending": pendingCommand})
 
 
 def commandClient(request):
