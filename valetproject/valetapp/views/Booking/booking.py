@@ -6,6 +6,8 @@ from valetapp.models.Valet.valetservice import CompositeBaseValet, CompositeExte
 from valetapp.models.Users.customer import Customer
 from valetapp.forms.Booking.bookService import AvailabilityForm
 from valetapp.views.Builder.goldBuilder import GoldBuilder
+from valetapp.views.Builder.bronzeBuilder import BronzeBuilder
+from valetapp.views.Builder.silverBuilder import SilverBuilder
 from valetapp.views.addOns import ConcreteValet, WaxCost, WashCost, PolishCost, LeatherCost, SteamCleanCost, VacuumCost
 import math
 from datetime import datetime, timedelta
@@ -230,6 +232,14 @@ def builder(request):
     goldBuilder.add_valet_service_a()
     goldBuilder.add_valet_service_b()
     goldBuilder.add_valet_service_c()
+
+    silverBuilder = SilverBuilder()
+    silverBuilder.add_valet_service_a()
+    silverBuilder.add_valet_service_b()
+    
+    bronzeBuilder = BronzeBuilder()
+    bronzeBuilder.add_valet_service_b()
+
     product = goldBuilder.product
     print(product['valet'].get_valet_cost())
     print(product['valets'])
