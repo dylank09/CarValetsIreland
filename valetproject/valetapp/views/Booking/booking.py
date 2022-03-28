@@ -13,7 +13,8 @@ import math
 from datetime import datetime, timedelta
 import pytz
 from valetapp.framework.concreteFramework import concreteFramework
-from valetapp.interceptor.concreteInterceptor import concreteInterceptor
+from valetapp.interceptor.concreteInterceptor1 import concreteInterceptor1
+from valetapp.interceptor.concreteInterceptor2 import concreteInterceptor2
 
 
 utc = pytz.UTC
@@ -248,9 +249,10 @@ def builder(request):
 
 def interceptor(request):
     concreteFramework1 = concreteFramework()
-    concreteInterceptor1 = concreteInterceptor()
-    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptor1)
+    concreteInterceptorA = concreteInterceptor1()
+    concreteInterceptorB = concreteInterceptor2()
+    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorA)
+    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorB)
     concreteFramework1.event()
-    print(concreteInterceptor1.log())
 
     return render(request, 'Booking/interceptor.html')

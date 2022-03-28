@@ -10,5 +10,5 @@ class dispatcher:
 
     def callBack(self, contextObject):
         for interceptor in self.interceptors:
-            print(interceptor)
+            print("Calling back to: ", interceptor)
             interceptor.callBack(contextObject)
