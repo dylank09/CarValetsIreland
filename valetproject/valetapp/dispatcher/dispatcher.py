@@ -34,5 +34,6 @@ class PriorityQueue():
         for k, v in self.queue.items():
             if v > top_value:
                 top_interceptor = k
-        
+                top_value = 0
+        self.remove(top_interceptor)
         return top_interceptor

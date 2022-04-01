@@ -264,8 +264,8 @@ def interceptor(request):
     concreteFramework1 = concreteFramework()
     concreteInterceptorA = concreteInterceptor1()
     concreteInterceptorB = concreteInterceptor2()
-    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorA)
-    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorB)
+    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorA, 1)
+    concreteFramework1.dispatcher.registerInterceptor(concreteInterceptorB, 2)
     concreteFramework1.event()
 
     return render(request, 'Booking/interceptor.html')
