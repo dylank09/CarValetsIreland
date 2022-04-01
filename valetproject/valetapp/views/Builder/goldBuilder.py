@@ -2,6 +2,7 @@ from valetapp.models.Valet.valetservice import CompositeBaseValet, CompositeExte
 from valetapp.views.Builder.builder import Builder
 from valetapp.views.addOns import ConcreteValet, VacuumCost, WashCost, WaxCost
 
+
 class GoldBuilder(Builder):
 
     base = CompositeBaseValet()
@@ -12,13 +13,16 @@ class GoldBuilder(Builder):
 
     def reset(self) -> None:
         self.valet = {}
+        self.valets = {}
+        self.base = CompositeBaseValet()
 
     @property
     def product(self):
-
-        # self.base.add(self.int_composite)
-        # product = self.base
-        product = {"valet":self.valet, "valets": self.valets}
+        self.base.add(self.ext_composite)
+        self.base.add(self.int_composite)
+        self.base = self.base.add_duration()
+        product = {"valet": self.valet,
+                   "valets": self.valets, "duration": self.base}
         self.reset()
         return product
 

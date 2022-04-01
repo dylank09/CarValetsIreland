@@ -229,21 +229,34 @@ def view_user_bookings(request):
 
 
 def builder(request):
-    goldBuilder = GoldBuilder()
-    goldBuilder.add_valet_service_a()
-    goldBuilder.add_valet_service_b()
-    goldBuilder.add_valet_service_c()
+    customer = Customer.objects.filter(user=request.user)[0]
+    memberShip_Type = customer.getMemberShip_Type().get_colour()
+    builder = {}
+    if (memberShip_Type == "gold"):
+        builder = GoldBuilder()
+        builder.add_valet_service_a()
+        builder.add_valet_service_b()
+        builder.add_valet_service_c()
 
-    silverBuilder = SilverBuilder()
-    silverBuilder.add_valet_service_a()
-    silverBuilder.add_valet_service_b()
-    
-    bronzeBuilder = BronzeBuilder()
-    bronzeBuilder.add_valet_service_b()
+    if (memberShip_Type == "silver"):
+        builder = SilverBuilder()
+        builder.add_valet_service_a()
+        builder.add_valet_service_b()
+        builder.add_valet_service_c()
 
-    product = goldBuilder.product
-    print(product['valet'].get_valet_cost())
+    if (memberShip_Type == "bronze"):
+        builder = BronzeBuilder()
+        builder.add_valet_service_a()
+        builder.add_valet_service_b()
+        builder.add_valet_service_c()
+
+    product = builder.product
+    print("Valets: ")
     print(product['valets'])
+    print("Valet Cost: ")
+    print(product['valet'].get_valet_cost())
+    print("Valet Duration: ")
+    print(product['duration'])
     return render(request, 'Booking/builder.html')
 
 

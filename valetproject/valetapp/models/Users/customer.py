@@ -28,3 +28,6 @@ class Customer(models.Model, Observer, Item):
 
     def accept(self, visitor):
         return visitor.visit(self)
+
+    def getMemberShip_Type(self):
+        return self.membershipType
